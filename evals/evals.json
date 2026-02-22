@@ -1,0 +1,23 @@
+{
+  "skill_name": "network-chaos",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "この chaos-config.yaml を使ってネットワーク障害のスクリプトを生成して",
+      "expected_output": "sample-config.yaml の3シナリオすべてに対応した chaos-start.sh と chaos-stop.sh が生成される。パイプ番号が100, 200, 300と割り当てられ、duration=120 と duration=300 のシナリオには自動停止のロジックが含まれる。",
+      "files": ["assets/sample-config.yaml"]
+    },
+    {
+      "id": 2,
+      "prompt": "localhost:3000 への通信を20%の確率でドロップしたい。あと 10.0.1.5:443 も50%で。どっちもTCPで、送信方向だけでいい",
+      "expected_output": "まず自然言語から YAML 設定を生成してユーザーに確認し、確認後に2シナリオ分の chaos-start.sh と chaos-stop.sh を生成する。127.0.0.1:3000 と 10.0.1.5:443 の両方が含まれる。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "マイクロサービス間の通信が不安定な状況を再現したい。APIゲートウェイ（192.168.10.1:8080）と認証サービス（192.168.10.2:9090）の両方に対して、軽めのパケットロスをかけて",
+      "expected_output": "「軽め」を適切なパケットロス率（10-20%程度）に解釈し、YAML設定を提案。ユーザー確認後にスクリプトを生成する。",
+      "files": []
+    }
+  ]
+}

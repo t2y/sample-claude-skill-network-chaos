@@ -1,0 +1,41 @@
+# Network Chaos サンプル設定ファイル
+#
+# このファイルは network-chaos スキルのサンプルです。
+# 自分の環境に合わせて IP やポートを変更してください。
+
+scenarios:
+  # シナリオ1: Web API サーバーへの通信を不安定にする
+  # 開発中のフロントエンドが API エラーを正しくハンドリングするかテストする想定
+  - name: "API server intermittent failure"
+    target:
+      ip: "192.168.1.100"
+      port: 8080
+      protocol: tcp
+      direction: out
+    chaos:
+      packet_loss: 30
+      duration: 0            # 手動で停止するまで継続
+
+  # シナリオ2: データベース接続を不安定にする
+  # コネクションプーリングやリトライロジックのテスト向け
+  - name: "Database connection flaky"
+    target:
+      ip: "10.0.0.50"
+      port: 5432
+      protocol: tcp
+      direction: out
+    chaos:
+      packet_loss: 50
+      duration: 120           # 2分後に自動停止
+
+  # シナリオ3: Redis キャッシュへの通信を軽度に不安定にする
+  # キャッシュミス時のフォールバック動作を確認する想定
+  - name: "Redis cache degraded"
+    target:
+      ip: "127.0.0.1"
+      port: 6379
+      protocol: tcp
+      direction: both
+    chaos:
+      packet_loss: 10
+      duration: 300           # 5分後に自動停止
